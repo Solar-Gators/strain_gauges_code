@@ -1,0 +1,41 @@
+# =========================
+# Build folders (VERY IMPORTANT)
+# =========================
+Debug/
+Release/
+build/
+*/Debug/
+*/Release/
+
+# =========================
+# Compiled / generated files
+# =========================
+*.o
+*.d
+*.elf
+*.map
+*.hex
+*.bin
+*.axf
+*.lst
+*.cyclo
+*.su
+
+# =========================
+# STM32CubeIDE / Eclipse
+# =========================
+.settings/
+.metadata/
+*.launch
+
+# Optional (KEEP if working in team)
+# .project
+# .cproject
+
+# =========================
+# System files
+# =========================
+.DS_Store
+Thumbs.db
+.settings/
+*.launch
