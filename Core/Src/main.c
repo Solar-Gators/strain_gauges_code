@@ -98,6 +98,11 @@ int main(void)
   while (1)
   {//hello
     /* USER CODE END WHILE */
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);   // HIGH
+	  HAL_Delay(500);
+
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); // LOW
+	  HAL_Delay(500);
 
     /* USER CODE BEGIN 3 */
   }
