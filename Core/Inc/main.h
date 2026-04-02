@@ -59,7 +59,10 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
-
+#define I2C1_SCL = GPIO_PIN_10;
+#define I2C1_SDA = GPIO_PIN_11;
+#define CAN_RX = GPIO_PIN_11;
+#define CAN_TX = GPIO_PIN_12;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
