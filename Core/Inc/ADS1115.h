@@ -18,7 +18,7 @@ typedef struct {
 	I2C_HandleTypeDef* hi2c;
 	uint8_t i2c_addr;
 	//raw data from ADC
-	int16_t raw_strain;
+	int16_t raw_strain[2]; //low byte AIN0, high byte AIN1
 	float strain_voltage;
 	float strain_converted;
 } ADS1115_Handle;

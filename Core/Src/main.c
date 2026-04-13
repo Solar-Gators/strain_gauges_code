@@ -103,8 +103,16 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
-	  ADS1115_ReadRawData(&ads, 0); // read AIN0
-	  ADS1115_ReadRawData(&ads, 1); // read AIN1
+	  int32_t sum_low = 0;
+	  int32_t sum_high = 0;
+	  for (int i = 0; i < 16; i++){
+		  ADS1115_ReadRawData(&ads, 0); // read AIN0
+		  sum_low += ads.raw_strain[0]; // read AIN1
+		  ADS1115_ReadRawData(&ads, 1);
+		  sum_high += ads.raw_strain[1];
+	  }
+	  int16_t avg_strain_low = sum_low / 16;
+	  int16_t avg_strain_high = sum_high / 16;
 	  LSM6DSO_ReadRawData(&imu); // readIMU
   }
   /* USER CODE END 3 */
