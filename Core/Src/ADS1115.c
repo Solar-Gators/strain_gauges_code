@@ -64,7 +64,14 @@ void ADS1115_ReadRawData(ADS1115_Handle *dev, uint8_t pin)
         return;
     }
 
-    dev->raw_strain = (int16_t)((data[0] << 8) | data[1]);
+    dev->raw_strain[pin] = (int16_t)((data[0] << 8) | data[1]);
+}
+
+void ADS1115_ConvertToVoltage(ADS1115_Handle *dev, int16_t avg_ain0, int16_t avg_ain1, int16_t avg_ain2){
+	 // convert raw strain to voltage, subtract 1.65V reference offset
+	dev->strain_voltage[0] = (avg_ain0 * 4.096f / 32767.0f) - 1.65f;
+	dev->strain_voltage[1] = (avg_ain1 * 4.096f / 32767.0f) - 1.65f;
+	dev->strain_voltage[2] = (avg_ain2 * 4.096f / 32767.0f) - 1.65f;
 }
 
 static HAL_StatusTypeDef ADS1115_ReadRegister(ADS1115_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){

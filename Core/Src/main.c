@@ -107,16 +107,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  int32_t sum_low = 0;
-	  int32_t sum_high = 0;
+	  int32_t sum_ain0 = 0;
+	  int32_t sum_ain1 = 0;
+	  int32_t sum_ain2 = 0;
 	  for (int i = 0; i < 16; i++){
 		  ADS1115_ReadRawData(&ads, 0); // read AIN0
-		  sum_low += ads.raw_strain[0]; // read AIN1
+		  sum_ain0 += ads.raw_strain[0];
 		  ADS1115_ReadRawData(&ads, 1);
-		  sum_high += ads.raw_strain[1];
+		  sum_ain1 += ads.raw_strain[1]; // read AIN1
+		  ADS1115_ReadRawData(&ads, 2);
+		  sum_ain2 += ads.raw_strain[2]; // read AIN2
 	  }
-	  int16_t avg_strain_low = sum_low / 16;
-	  int16_t avg_strain_high = sum_high / 16;
+	  // average oversampled values
+	  int16_t avg_strain_ain0= sum_ain0 / 16;
+	  int16_t avg_strain_ain1 = sum_ain1 / 16;
+	  int16_t avg_strain_ain2 = sum_ain2 / 16;
+	  ADS1115_ConvertToVoltage(&ads, avg_strain_ain0, avg_strain_ain1, avg_strain_ain2);
 	  LSM6DSO_ReadRawData(&imu); // readIMU
   }
   /* USER CODE END 3 */

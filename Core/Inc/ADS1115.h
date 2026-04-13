@@ -18,12 +18,14 @@ typedef struct {
 	I2C_HandleTypeDef* hi2c;
 	uint8_t i2c_addr;
 	//raw data from ADC
-	int16_t raw_strain[2]; //low byte AIN0, high byte AIN1
-	float strain_voltage;
-	float strain_converted;
+	int16_t raw_strain[3]; // AIN0, AIN1, AIN2
+	float strain_voltage[3];
+	float strain_converted[3];
 } ADS1115_Handle;
 
 uint8_t ADS1115_init(ADS1115_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr);
 
 //Get raw data from ADC
 void ADS1115_ReadRawData(ADS1115_Handle *dev, uint8_t pin);
+
+void ADS1115_ConvertToVoltage(ADS1115_Handle *dev, int16_t avg_ain0, int16_t avg_ain1, int16_t avg_ain2);
