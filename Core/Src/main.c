@@ -19,9 +19,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ADS1115.h"
+#include "LSM6DSO.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +45,8 @@
 CAN_HandleTypeDef hcan1;
 
 /* USER CODE BEGIN PV */
-
+ADS1115_Handle ads;
+LSM6DSO_Handle imu;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,21 +93,19 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN1_Init();
   /* USER CODE BEGIN 2 */
-
+  ADS1115_init(&ads, &hi2c2, ADS1115_I2C_ADDR);
+  LSM6DSO_init(&imu, &hi2c2, LSM6DSO_I2C_ADDR);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {//hello
+  {
     /* USER CODE END WHILE */
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);   // HIGH
-	  HAL_Delay(500);
-
-	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET); // LOW
-	  HAL_Delay(500);
-
     /* USER CODE BEGIN 3 */
+	  ADS1115_ReadRawData(&ads, 0); // read AIN0
+	  ADS1115_ReadRawData(&ads, 1); // read AIN1
+	  LSM6DSO_ReadRawData(&imu); // readIMU
   }
   /* USER CODE END 3 */
 }

@@ -27,8 +27,3 @@ uint8_t ADS1115_init(ADS1115_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 
 //Get raw data from ADC
 void ADS1115_ReadRawData(ADS1115_Handle *dev, uint8_t pin);
-
-// Low-Level Functions
-//**chat recommends removing these and adding them to .c file****
-static HAL_StatusTypeDef ADS1115_ReadRegister(ADS1115_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len);
-static HAL_StatusTypeDef ADS1115_WriteRegister(ADS1115_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len);

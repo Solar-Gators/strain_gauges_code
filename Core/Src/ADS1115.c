@@ -8,17 +8,6 @@ uint8_t ADS1115_init(ADS1115_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 	if ((HAL_I2C_IsDeviceReady(dev->hi2c, dev->i2c_addr, 3, HAL_MAX_DELAY)) != HAL_OK) {
 		return 0;
 	}
-
-	uint8_t config_data[2];
-	config_data[0] = 0x84; // MSB of Config register to be written
-	config_data[1] = 0x83; // LSB of Config register to be written
-	ADS1115_WriteRegister(dev, ADS1115_CONFIG_REG, config_data, 2);
-//RECCOMENDED CHANGE ^^^
-/*
- * if (ADS1115_WriteRegister(dev, ADS1115_CONFIG_REG, config_data, 2) != HAL_OK) {
-    return 0;
-}
- */
 	return 1;
 }
 

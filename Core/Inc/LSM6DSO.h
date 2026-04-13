@@ -33,8 +33,3 @@ uint8_t LSM6DSO_init(LSM6DSO_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 
 //Get Raw Data from IMU
 void LSM6DSO_ReadRawData(LSM6DSO_Handle *dev);
-
-// Low-Level Functions
-//****Chat recommends removing these and adding to them to the .c file only
-static HAL_StatusTypeDef LSM6DSO_ReadRegister(LSM6DSO_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len);
-static HAL_StatusTypeDef LSM6DSO_WriteRegister(LSM6DSO_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len);
