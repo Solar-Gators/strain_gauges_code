@@ -62,6 +62,14 @@ void LSM6DSO_ReadRawData(LSM6DSO_Handle *dev)
     dev->raw_gyro[2] = (int16_t)((gyro_data[5] << 8) | gyro_data[4]); // Z
 }
 
+void LSM6DSO_ConvertData(LSM6DSO_Handle *dev){
+	for (int i = 0; i < 3; i++){
+		dev->accel_converted[i] = dev->raw_accel[i] * 0.061f * 9.81f / 1000.0f;
+        dev->gyro_converted[i] = dev->raw_gyro[i] * 8.75f / 1000.0f;
+	}
+}
+
+
 static HAL_StatusTypeDef LSM6DSO_ReadRegister(LSM6DSO_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){
 	return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, data, len, HAL_MAX_DELAY);
 }

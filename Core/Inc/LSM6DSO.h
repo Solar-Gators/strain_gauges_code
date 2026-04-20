@@ -33,3 +33,5 @@ uint8_t LSM6DSO_init(LSM6DSO_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 
 //Get Raw Data from IMU
 void LSM6DSO_ReadRawData(LSM6DSO_Handle *dev);
+
+void LSM6DSO_ConvertData(LSM6DSO_Handle *dev);

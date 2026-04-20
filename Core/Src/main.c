@@ -124,6 +124,8 @@ int main(void)
 	  int16_t avg_strain_ain2 = sum_ain2 / 16;
 	  ADS1115_ConvertToVoltage(&ads, avg_strain_ain0, avg_strain_ain1, avg_strain_ain2);
 	  LSM6DSO_ReadRawData(&imu); // readIMU
+	  LSM6DSO_ConvertData(&imu); // converted to acceleration, angular rate
+	  // Strain(material) = raw strain - mass * ( (a(measured) - g(oriented)) / (Young's Modulus E * cross-sectional area A)
   }
   /* USER CODE END 3 */
 }
