@@ -82,7 +82,8 @@ static HAL_StatusTypeDef ADS1115_ReadRegister(ADS1115_Handle *dev, uint8_t reg, 
 void ADS1115_AdjustedStrain(ADS1115_Handle *ads_dev, LSM6DSO_Handle *imu_dev){
 	for (int i = 0; i < 3; i++){
 		float inertial_strain = STRAIN_MASS * (imu_dev->accel_converted[i] - imu_dev->gravity_oriented[i]) / (YOUNGS_MODULUS * STRAIN_AREA);
-		ads_dev->strain_converted[i] = ads_dev->strain_voltage[i] - inertial_strain;
+		float inertial_voltage = inertial_strain * (GAUGE_FACTOR * WHEATSTONE_BRIDGE_VOLTAGE / 2.0f);
+		ads_dev->strain_converted[i] = ads_dev->strain_voltage[i] - inertial_voltage;
 	}
 }
 
