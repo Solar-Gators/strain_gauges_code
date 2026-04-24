@@ -10,9 +10,9 @@ uint8_t LSM6DSO_init(LSM6DSO_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 		return 0;
 	}
 
-	//12.5 Hz Low-Power CHANGE LATER IF NEEDED (Check what max vibration on car actually is)
-	uint8_t ctrl1 = 0x10;
-	uint8_t ctrl2 = 0x10;
+	//208 Hz Low-Power CHANGE LATER IF NEEDED (Check what max vibration on car actually is)
+	uint8_t ctrl1 = 0x60;
+	uint8_t ctrl2 = 0x60;
 
 	LSM6DSO_WriteRegister(dev, LSM6DSO_CTRL1_XL, &ctrl1, 1);
 	LSM6DSO_WriteRegister(dev, LSM6DSO_CTRL2_G, &ctrl2, 1);
@@ -79,7 +79,7 @@ void LSM6DSO_CalculateGravity(LSM6DSO_Handle *dev){
 		sum[1] += dev->accel_converted[1];
 		sum[2] += dev->accel_converted[2];
 	}
-	dev->gravity_oriented[0] = sum[0] / 16.0f;
+	dev->gravity_oriented[0] = sum[0] / 16.0f; //fix based on how gauge is mounted
 	dev->gravity_oriented[1] = sum[1] / 16.0f;
 	dev->gravity_oriented[2] = sum[2] / 16.0f;
 	HAL_Delay(10);

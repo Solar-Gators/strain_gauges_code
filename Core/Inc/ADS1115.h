@@ -13,6 +13,8 @@
 #define ADS1115_I2C_ADDR 0x48
 #define ADS1115_CONVERSION_REG 0x00
 #define ADS1115_CONFIG_REG 0x01
+#define WHEATSTONE_BRIDGE_VOLTAGE 3.3f
+#define GAUGE_FACTOR 2.0f
 #define STRAIN_MASS 0.0f // mass of part of chassis gauge is on
 #define YOUNGS_MODULUS 0.0f // Young's Modulus value for strain gauge
 #define STRAIN_AREA 0.0f // Cross-section area of mount for gauge
