@@ -69,6 +69,21 @@ void LSM6DSO_ConvertData(LSM6DSO_Handle *dev){
 	}
 }
 
+void LSM6DSO_CalculateGravity(LSM6DSO_Handle *dev){
+	// oversample, calculate average
+	float sum[3] = {0, 0, 0};
+	for (int i = 0; i < 16; i++){
+		LSM6DSO_ReadRawData(dev);
+		LSM6DSO_ConvertData(dev);
+		sum[0] += dev->accel_converted[0];
+		sum[1] += dev->accel_converted[1];
+		sum[2] += dev->accel_converted[2];
+	}
+	dev->gravity_oriented[0] = sum[0] / 16.0f;
+	dev->gravity_oriented[1] = sum[1] / 16.0f;
+	dev->gravity_oriented[2] = sum[2] / 16.0f;
+	HAL_Delay(10);
+}
 
 static HAL_StatusTypeDef LSM6DSO_ReadRegister(LSM6DSO_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){
 	return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, data, len, HAL_MAX_DELAY);

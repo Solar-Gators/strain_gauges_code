@@ -1,4 +1,5 @@
 #include "ADS1115.h"
+#include "LSM6DSO.h"
 
 uint8_t ADS1115_init(ADS1115_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr){
 	dev->hi2c = hi2c;
@@ -76,6 +77,13 @@ void ADS1115_ConvertToVoltage(ADS1115_Handle *dev, int16_t avg_ain0, int16_t avg
 
 static HAL_StatusTypeDef ADS1115_ReadRegister(ADS1115_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){
 	return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, data, len, HAL_MAX_DELAY);
+}
+
+void ADS1115_AdjustedStrain(ADS1115_Handle *ads_dev, LSM6DSO_Handle *imu_dev){
+	for (int i = 0; i < 3; i++){
+		float inertial_strain = STRAIN_MASS * (imu_dev->accel_converted[i] - imu_dev->gravity_oriented[i]) / (YOUNGS_MODULUS * STRAIN_AREA);
+		ads_dev->strain_converted[i] = ads_dev->strain_voltage[i] - inertial_strain;
+	}
 }
 
 static HAL_StatusTypeDef ADS1115_WriteRegister(ADS1115_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){

@@ -27,6 +27,7 @@ typedef struct {
 	int16_t raw_gyro[3]; // X, Y, Z data
 	float accel_converted[3]; // in m/s^2
 	float gyro_converted[3]; // in deg / s
+	float gravity_oriented[3];
 } LSM6DSO_Handle;
 
 uint8_t LSM6DSO_init(LSM6DSO_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr);
@@ -35,3 +36,5 @@ uint8_t LSM6DSO_init(LSM6DSO_Handle *dev, I2C_HandleTypeDef *hi2c, uint8_t addr)
 void LSM6DSO_ReadRawData(LSM6DSO_Handle *dev);
 
 void LSM6DSO_ConvertData(LSM6DSO_Handle *dev);
+
+void LSM6DSO_CalculateGravity(LSM6DSO_Handle *dev);

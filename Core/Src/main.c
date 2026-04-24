@@ -98,6 +98,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   ADS1115_init(&ads, &hi2c2, ADS1115_I2C_ADDR);
   LSM6DSO_init(&imu, &hi2c2, LSM6DSO_I2C_ADDR);
+  LSM6DSO_CalculateGravity(&imu);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,6 +127,7 @@ int main(void)
 	  LSM6DSO_ReadRawData(&imu); // readIMU
 	  LSM6DSO_ConvertData(&imu); // converted to acceleration, angular rate
 	  // Strain(material) = raw strain - mass * ( (a(measured) - g(oriented)) / (Young's Modulus E * cross-sectional area A)
+	  ADS1115_AdjustedStrain(&ads, &imu);
   }
   /* USER CODE END 3 */
 }
