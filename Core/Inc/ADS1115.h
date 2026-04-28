@@ -15,9 +15,9 @@
 #define ADS1115_CONFIG_REG 0x01
 #define WHEATSTONE_BRIDGE_VOLTAGE 3.3f
 #define GAUGE_FACTOR 2.0f
-#define STRAIN_MASS 0.0f // mass of part of chassis gauge is on
-#define YOUNGS_MODULUS 0.0f // Young's Modulus value for strain gauge
-#define STRAIN_AREA 0.0f // Cross-section area of mount for gauge
+#define STRAIN_MASS 0.985f // mass of part of chassis gauge is on
+#define YOUNGS_MODULUS 231000000000.0f // Young's Modulus value for strain gauge
+#define STRAIN_AREA 0.2551f // Cross-section area of mount for gauge
 
 
 typedef struct {

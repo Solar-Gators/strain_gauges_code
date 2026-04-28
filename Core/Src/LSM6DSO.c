@@ -78,11 +78,11 @@ void LSM6DSO_CalculateGravity(LSM6DSO_Handle *dev){
 		sum[0] += dev->accel_converted[0];
 		sum[1] += dev->accel_converted[1];
 		sum[2] += dev->accel_converted[2];
+		HAL_Delay(10);
 	}
 	dev->gravity_oriented[0] = sum[0] / 16.0f; //fix based on how gauge is mounted
 	dev->gravity_oriented[1] = sum[1] / 16.0f;
 	dev->gravity_oriented[2] = sum[2] / 16.0f;
-	HAL_Delay(10);
 }
 
 static HAL_StatusTypeDef LSM6DSO_ReadRegister(LSM6DSO_Handle *dev, uint8_t reg, uint8_t *data, uint16_t len){
